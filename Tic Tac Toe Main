@@ -1,0 +1,61 @@
+def print_board(board):
+    for row in board:
+        print(" | ".join(row))
+        print("-" * 9)
+
+def check_winner(board):
+    # Check rows, columns, and diagonals for a winner
+    for i in range(3):
+        if board[i][0] == board[i][1] == board[i][2] != " ":
+            return board[i][0]
+        if board[0][i] == board[1][i] == board[2][i] != " ":
+            return board[0][i]
+    if board[0][0] == board[1][1] == board[2][2] != " ":
+        return board[0][0]
+    if board[0][2] == board[1][1] == board[2][0] != " ":
+        return board[0][2]
+    return None
+
+def is_board_full(board):
+    return all(board[i][j] != " " for i in range(3) for j in range(3))
+
+def get_empty_positions(board):
+    empty_positions = []
+    for i in range(3):
+        for j in range(3):
+            if board[i][j] == " ":
+                empty_positions.append((i, j))
+    return empty_positions
+
+def player_move(board, symbol):
+    while True:
+        row = int(input("Enter row (0, 1, 2) for your move: "))
+        col = int(input("Enter column (0, 1, 2) for your move: "))
+        if (row, col) in get_empty_positions(board):
+            board[row][col] = symbol
+            break
+        else:
+            print("Invalid move. Try again.")
+
+def play_game():
+    board = [[" " for _ in range(3)] for _ in range(3)]
+    symbols = ["X", "O"]
+    turn = 0
+    print("Welcome to Tic Tac Toe!")
+    print_board(board)
+
+    while True:
+        current_symbol = symbols[turn % 2]
+        print(f"Player {current_symbol}'s turn.")
+        player_move(board, current_symbol)
+        print_board(board)
+        winner = check_winner(board)
+        if winner:
+            print(f"Player {winner} wins!")
+            break
+        if is_board_full(board):
+            print("It's a tie!")
+            break
+        turn += 1
+
+play_game()

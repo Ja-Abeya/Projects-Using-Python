@@ -1,0 +1,50 @@
+import calendar
+import tkinter as tk
+from tkinter import ttk
+
+class CalendarApp:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Calendar App")
+
+        self.year_var = tk.StringVar()
+        self.month_var = tk.StringVar()
+
+        self.year_label = ttk.Label(root, text="Year:")
+        self.year_label.grid(row=0, column=0, padx=10, pady=10, sticky=tk.W)
+
+        self.year_entry = ttk.Entry(root, textvariable=self.year_var)
+        self.year_entry.grid(row=0, column=1, padx=10, pady=10)
+
+        self.month_label = ttk.Label(root, text="Month:")
+        self.month_label.grid(row=0, column=2, padx=10, pady=10, sticky=tk.W)
+
+        self.month_entry = ttk.Entry(root, textvariable=self.month_var)
+        self.month_entry.grid(row=0, column=3, padx=10, pady=10)
+
+        self.show_button = ttk.Button(root, text="Show Calendar", command=self.show_calendar)
+        self.show_button.grid(row=0, column=4, padx=10, pady=10)
+
+        self.calendar_frame = ttk.Frame(root)
+        self.calendar_frame.grid(row=1, column=0, columnspan=5, padx=10, pady=10)
+
+    def show_calendar(self):
+        try:
+            year = int(self.year_var.get())
+            month = int(self.month_var.get())
+            cal_text = calendar.month(year, month)
+            self.display_calendar(cal_text)
+        except ValueError:
+            tk.messagebox.showerror("Error", "Please enter valid year and month.")
+
+    def display_calendar(self, cal_text):
+        for widget in self.calendar_frame.winfo_children():
+            widget.destroy()
+
+        label = ttk.Label(self.calendar_frame, text=cal_text, font=("Courier", 12))
+        label.pack()
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = CalendarApp(root)
+    root.mainloop()

@@ -1,0 +1,41 @@
+import random
+
+def choose_word():
+    words = ["python", "hangman", "programming", "computer", "developer", "gaming"]
+    return random.choice(words)
+
+def display_word(word, guessed_letters):
+    return ''.join(letter if letter in guessed_letters else '_' for letter in word)
+
+def hangman():
+    word_to_guess = choose_word()
+    guessed_letters = set()
+    attempts_left = 6
+
+    print("Welcome to Hangman!")
+    
+    while attempts_left > 0:
+        current_display = display_word(word_to_guess, guessed_letters)
+        print(f"Word: {current_display}")
+        guess = input("Guess a letter: ").lower()
+
+        if guess in guessed_letters:
+            print("You've already guessed that letter. Try again.")
+            continue
+
+        guessed_letters.add(guess)
+
+        if guess not in word_to_guess:
+            attempts_left -= 1
+            print(f"Incorrect! Attempts left: {attempts_left}")
+
+        if set(word_to_guess) <= guessed_letters:
+            print(f"Congratulations! You guessed the word: {word_to_guess}")
+            break
+
+    if attempts_left == 0:
+        print(f"Sorry, you ran out of attempts. The word was: {word_to_guess}")
+
+if __name__ == "__main__":
+    hangman()
+

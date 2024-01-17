@@ -44,3 +44,23 @@ if __name__ == '__main__':
     </form>
 </body>
 </html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentiment Analysis Result</title>
+</head>
+<body>
+    <h2>Text:</h2>
+    <p>{{ text }}</p>
+    <h2>Sentiment:</h2>
+    <p>{{ sentiment }}</p>
+    <h2>Confidence:</h2>
+    <p>{{ confidence }}</p>
+    <br>
+    <a href="/">Back to Home</a>
+</body>
+</html>
+

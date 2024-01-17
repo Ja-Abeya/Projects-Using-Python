@@ -1,0 +1,46 @@
+pip install flask transformers torch
+
+from flask import Flask, render_template, request
+from transformers import pipeline
+
+app = Flask(__name__)
+
+# Load pre-trained sentiment analysis model
+sentiment_analysis = pipeline('sentiment-analysis')
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+@app.route('/analyze_sentiment', methods=['POST'])
+def analyze_sentiment():
+    if request.method == 'POST':
+        text = request.form['text']
+        result = sentiment_analysis(text)[0]
+        sentiment = result['label']
+        confidence = result['score']
+
+        return render_template('result.html', text=text, sentiment=sentiment, confidence=confidence)
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+
+#creating html templates
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentiment Analysis Web App</title>
+</head>
+<body>
+    <h1>Sentiment Analysis Web App</h1>
+    <form action="/analyze_sentiment" method="post">
+        <label for="text">Enter Text:</label>
+        <textarea name="text" id="text" rows="4" required></textarea>
+        <br>
+        <input type="submit" value="Analyze Sentiment">
+    </form>
+</body>
+</html>

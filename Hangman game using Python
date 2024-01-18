@@ -1,4 +1,4 @@
-
+import random
 
 def choose_word():
     words = ["python", "hangman", "programming", "computer", "developer", "gaming"]

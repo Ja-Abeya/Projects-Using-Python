@@ -44,3 +44,7 @@ class CalendarApp:
         label = ttk.Label(self.calendar_frame, text=cal_text, font=("Courier", 12))
         label.pack()
 
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = CalendarApp(root)
+    root.mainloop()

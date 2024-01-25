@@ -51,6 +51,7 @@ class TimerApp:
         time_str = str(timedelta(seconds=self.seconds))
         self.time_var.set(time_str)
 
+
 if __name__ == "__main__":
     root = tk.Tk()
     app = TimerApp(root)

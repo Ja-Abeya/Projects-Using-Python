@@ -49,4 +49,3 @@ if __name__ == "__main__":
     app = CalendarApp(root)
     root.mainloop()
 
-
